@@ -1,0 +1,19 @@
+# KiCad generated files
+*-backups/
+_autosave-*
+*.kicad_prl
+*.kicad_pro-bak
+*.kicad_sch-bak
+*.kicad_pcb-bak
+*.lck
+
+# Build and export outputs
+build/
+out/
+*.tmp
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
