@@ -4,6 +4,8 @@
 
 ## 1. Scope of this revision
 
+Detailed sheet definitions are now maintained under `hardware/rev-a/schematic/`. The contactor itself and its coil-specific driver are postponed; J_K1 defines their interface.
+
 This first schematic increment covers:
 
 - ESP32-S3 controller core;
@@ -53,13 +55,13 @@ Do not connect `GND_SELV` to PE until the CP isolation/reference architecture is
 | U1 | ESP32-S3-WROOM-1-N8R8 | application controller and Wi-Fi | selected |
 | U2 | TPS3430-Q1 | independent window watchdog | selected for draft |
 | U3 | BRCS01C-05-H1 | 6 mA DC / 30 mA AC+DC residual-current sensor | preferred, certification evidence pending |
-| U4 | 24 V → 5.5 V buck, 36 V minimum input rating | low-voltage preregulator | part selection pending |
+| U4 | TPS54360B, configured for 5.5 V | low-voltage preregulator | provisional; compensation calculation pending |
 | U5 | TLV76750 or qualified equivalent | dedicated 5 V RDC LDO | provisional |
-| U6 | 3.3 V regulator, 1 A minimum transient capability | ESP32 supply | part selection pending |
+| U6 | TPS62133, configured for 3.3 V | ESP32 supply | provisional; power calculation pending |
 | U7 | logic/supervisor block | power-good and safety gating | implementation pending review |
-| Q1 | 60 V logic-level N-MOSFET | 24 V contactor low-side driver | exact part pending coil current |
+| Q1 | DNP in controller-only increment | future contactor driver | postponed until coil selection |
 | Q2 | small-signal NPN/N-MOSFET | direct RDC gate clamp | provisional topology |
-| D1 | diode + TVS clamp network | fast controlled coil demagnetization | values pending contactor coil |
+| D1 | DNP in controller-only increment | future coil suppression | postponed until coil selection |
 | K1 | Baomain BMHC7-40, 2NO, DC/AC 24 V coil | L/N switching | preferred prototype candidate; conditional |
 
 ## 5. ESP32-S3 core connections
