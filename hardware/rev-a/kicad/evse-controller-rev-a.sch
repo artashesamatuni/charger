@@ -14,7 +14,7 @@ Comp "artashesamatuni/charger"
 Comment1 "Controller only - external contactor added later"
 Comment2 "NOT APPROVED FOR MAINS OR VEHICLE CONNECTION"
 Comment3 "BRCS01C-05-H1, ESP32-S3, hardwired inhibit interface"
-Comment4 "External Type A RCD and C32 breaker"
+Comment4 "Adapted from OpenEVSE_PLUS v6.5.1; CC BY-SA 3.0"
 $EndDescr
 Text Notes 700 650 0 100 ~ 20
 24 V INPUT AND LOW-VOLTAGE POWER
@@ -377,7 +377,9 @@ Wire Wire Line
 Wire Wire Line
 	6900 5100 7550 5100
 Text Notes 6900 5450 0 50 ~ 0
-CP/PP isolated interface is next capture sheet
+CP/PP based on OpenEVSE LMV358 + TC1044S topology; adapted for 3.3V
+Text Notes 700 7300 0 50 ~ 0
+Design basis: github.com/OpenEVSE/OpenEVSE_PLUS, v6.5.1, CC BY-SA 3.0
 Text Notes 700 7450 0 60 ~ 12
 SAFETY NOTE: values and functional blocks marked preliminary require calculation, datasheet review and bench validation.
 $EndSCHEMATC
