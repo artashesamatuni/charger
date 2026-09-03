@@ -1,18 +1,29 @@
 # Sheet 02 — RDC interface and hardwired safety
 
-> BRCS01C-05-H1 output polarity and timing are not yet controlled. This sheet defines functions and configurable polarity points; it is not production-ready.
+> This revision uses the public BRCS01C datasheet V1.0.1 behavior for the 5 V version. Production release still requires the controlled datasheet supplied with the purchased BRCS01C-05-H1 lot.
 
-## Trip input channels
+## Confirmed 5 V interface behavior
+
+- VCC is 5 VDC ±3%.
+- Pin 2 is AC&DC Trip.
+- Pin 4 is CAL.
+- Pin 5 is TEST.
+- Pin 6 is DC Trip.
+- In the normal state the trip outputs pull to GND.
+- On the corresponding trip the output changes to high impedance.
+- A change from GND to high impedance is also permitted by the product behavior; the controller must treat it as a fault.
+- Direct connection of pins 2 or 6 to a relay/contactor is prohibited by the application note.
+
+## Fail-safe trip input channels
 
 RDC_DC_RAW and RDC_ACDC_RAW use separate identical channels:
 
-1. series resistance sized from guaranteed sensor output current;
-2. clamp/ESD network compatible with the output type;
-3. Schmitt comparator or buffer;
-4. selectable inversion footprint;
-5. separate hardwired shutdown and read-only ESP32 paths.
+1. 10 kΩ preliminary pull-up to supervised +3V3, so trip, missing sensor power, or an open signal wire becomes logic high;
+2. 1 kΩ preliminary series resistor into a 5 V-tolerant Schmitt buffer/comparator;
+3. optional small filter capacitor footprint, DNP until response-time testing;
+4. split conditioned output into the hardwired shutdown path and an ESP32 read-only input.
 
-Do not wire the raw outputs together.
+Select the final buffer only after its thresholds are checked against the guaranteed BRCS low-output voltage. Do not wire the two raw outputs together. The hardwired path must not depend on ESP32 execution.
 
 ## Set-dominant fault latch
 
@@ -60,6 +71,10 @@ U_WD is provisionally TPS3430-Q1.
 - A free-running interrupt must not service WDI.
 - Timing components remain DNP until firmware scheduling is frozen.
 
+## TEST and CAL drivers-TEST:** drive pin 5 high for 40–100 ms in the first prototype; the public datasheet specifies activation above 40 ms. Use an open-drain or series-buffered driver whose reset state is low.
+- **CAL:** pull pin 4 to GND for 50–100 ms using an open-drain transistor. Leave it high impedance otherwise.
+- Calibration is allowed only with the contactor open and no current through the sensing aperture.
+
 ## RDC self-test
 
 Before every closure request:
@@ -75,11 +90,17 @@ Before every closure request:
 
 Production test must inject calibrated AC and smooth-DC residual currents through the aperture and measure total response time.
 
-## Blocking evidence
+## Source and remaining blocking evidence
 
-- controlled BRCS01C-05-H1 datasheet;
-- output topology, polarity and absolute maximum ratings;
-- TEST waveform and timing;
-- CAL function;
-- startup and sensor-power-loss behavior;
-- certificate scope for the exact suffix and harness.
+Public sources:
+
+- https://www.bituo-technik.com/news/brcs01c-05-h1-facilitate-designing-a-reliable-built-in-dc-6ma-rcd-at-ac-ev-chargers/
+- https://bituo-technik.com/wp-content/uploads/2024/01/TS_BRCS01C_EN_V1.0.1_202312.pdf
+
+Still required before release:
+
+- controlled datasheet and connector drawing supplied for the purchased BRCS01C-05-H1 lot;
+- guaranteed output low voltage and sink current;
+- exact self-test response-time limits and startup settling time;
+- certificate and test-report scope for the exact suffix and harness;
+- validation that signal-wire disconnection, loss of 5 V, stuck-low, and stuck-high faults all prohibit charging.
