@@ -9,7 +9,7 @@ Item,Reference,Manufacturer,Part number,Description,Qty,Status,Key requirement
 8,Q1,TBD,TBD,60V logic-level contactor coil MOSFET,1,Open,Select after coil current and clamp voltage
 9,Q2,TBD,TBD,Dominant RDC trip gate-clamp transistor,1,Open,Size from guaranteed BRCS output
 10,D1,TBD,TBD,Coil demagnetization diode and TVS network,1,Open,Select from contactor release-time test
-11,K1,XKJL1 family,XKJL1-40/2 (exact coil suffix TBD),2-pole 40A definite-purpose contactor,1,User-selected candidate,Confirm coil AC/DC voltage frequency auxiliary contact certificates and hot-enclosure derating
+11,K1,Baomain,BMHC7-40 2NO DC/AC24V,2-pole 40A AC-7a modular contactor with 2W electronic coil,1,Preferred prototype candidate,Cold limit is -5C; verify -25C operation 4000m insulation aux contact certifications and hot-enclosure derating
 12,J3,TBD,TBD,Keyed locking 6-way RDC connector,1,Open,Must match BRCS01C-05-H1 harness
 13,J4,TBD,TBD,4-way contactor coil and auxiliary connector,1,Open,Current voltage temperature locking
 14,FB1,TBD,TBD,Ferrite bead for RDC 5V supply,1,Open,Impedance and DC current after EMC testing
