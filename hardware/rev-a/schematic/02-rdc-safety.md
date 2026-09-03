@@ -29,7 +29,7 @@ Select the final buffer only after its thresholds are checked against the guaran
 
 ```text
 SET = RDC_DC_TRIP
-   OR RDC_ACDC_TRIP
+   OR (RDC_ACDC_TRIP AND ACDC_TRIP_ARM)
    OR WATCHDOG_FAULT
    OR RDC_POWER_BAD
    OR CP_HARD_FAULT
@@ -55,11 +55,13 @@ K1_HW_ENABLE =
     AND WATCHDOG_OK
     AND RDC_5V_OK
     AND NOT RDC_DC_TRIP
-    AND NOT RDC_ACDC_TRIP
+    AND NOT (RDC_ACDC_TRIP AND ACDC_TRIP_ARM)
     AND NOT FAULT_LATCHED
 ```
 
 The final stage must default OFF while unpowered. K1_HW_ENABLE terminates at J_K1; the future coil driver cannot bypass it.
+
+For the declared installation with an external Type A 30 mA RCD, populate ACDC_TRIP_ARM as DNP/open and use the dedicated DC Trip as the mandatory IEC 62955 shutdown channel. Continue monitoring AC&DC Trip for diagnostics and self-test. The option may be populated only after a separate protection/conformity review.
 
 ## Watchdog
 
