@@ -1,0 +1,383 @@
+EESchema Schematic File Version 4
+LIBS:power
+LIBS:device
+LIBS:Connector_Generic
+LIBS:RF_Module
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+Sheet 1 1
+Title "EVSE Controller Rev A"
+Date "2026-09-03"
+Rev "0.2-DRAFT"
+Comp "artashesamatuni/charger"
+Comment1 "Controller only - external contactor added later"
+Comment2 "NOT APPROVED FOR MAINS OR VEHICLE CONNECTION"
+Comment3 "BRCS01C-05-H1, ESP32-S3, hardwired inhibit interface"
+Comment4 "External Type A RCD and C32 breaker"
+$EndDescr
+Text Notes 700 650 0 100 ~ 20
+24 V INPUT AND LOW-VOLTAGE POWER
+$Comp
+L Connector_Generic:Conn_01x03 J1
+U 1 1 66000001
+P 1200 1200
+F 0 "J1" H 1118 1517 50  0000 C CNN
+F 1 "POWER_IN" H 1118 1426 50 0000 C CNN
+	1    1200 1200
+	-1 0 0 -1
+$EndComp
+Text Label 1450 1100 0 50 ~ 0
++24V_IN
+Text Label 1450 1200 0 50 ~ 0
+GND_SELV
+Text Label 1450 1300 0 50 ~ 0
+PE
+Wire Wire Line
+	1400 1100 1750 1100
+Wire Wire Line
+	1400 1200 1750 1200
+Wire Wire Line
+	1400 1300 1750 1300
+$Comp
+L Device:Fuse F1
+U 1 1 66000002
+P 2200 1100
+F 0 "F1" V 2003 1100 50 0000 C CNN
+F 1 "1A_TBD" V 2094 1100 50 0000 C CNN
+	1    2200 1100
+	0 1 1 0
+$EndComp
+Wire Wire Line
+	1750 1100 2050 1100
+Text Label 2450 1100 0 50 ~ 0
++24V_PROT
+Wire Wire Line
+	2350 1100 2800 1100
+$Comp
+L Device:D_TVS D1
+U 1 1 66000003
+P 2600 1450
+F 0 "D1" V 2554 1530 50 0000 L CNN
+F 1 "SMBJ33A" V 2645 1530 50 0000 L CNN
+	1    2600 1450
+	0 1 1 0
+$EndComp
+Wire Wire Line
+	2600 1300 2600 1100
+Text Label 2450 1700 0 50 ~ 0
+GND_SELV
+Wire Wire Line
+	2600 1600 2600 1700
+$Comp
+L Connector_Generic:Conn_01x04 U2
+U 1 1 66000004
+P 3550 1200
+F 0 "U2" H 3630 1192 50 0000 L CNN
+F 1 "TPS54360B_POWER_STAGE" H 3630 1101 50 0000 L CNN
+	1    3550 1200
+	1 0 0 -1
+$EndComp
+Text Label 3000 1100 0 50 ~ 0
++24V_PROT
+Text Label 3000 1200 0 50 ~ 0
+GND_SELV
+Text Label 3000 1300 0 50 ~ 0
++5V5_PRE
+Text Label 3000 1400 0 50 ~ 0
+BUCK_PGOOD
+Wire Wire Line
+	3000 1100 3350 1100
+Wire Wire Line
+	3000 1200 3350 1200
+Wire Wire Line
+	3000 1300 3350 1300
+Wire Wire Line
+	3000 1400 3350 1400
+Text Notes 3300 1650 0 50 ~ 0
+Detailed L/C/COMP values remain calculation-controlled
+$Comp
+L Connector_Generic:Conn_01x03 U3
+U 1 1 66000005
+P 5400 1200
+F 0 "U3" H 5480 1242 50 0000 L CNN
+F 1 "TLV76750" H 5480 1151 50 0000 L CNN
+	1    5400 1200
+	1 0 0 -1
+$EndComp
+Text Label 4700 1100 0 50 ~ 0
++5V5_PRE
+Text Label 4700 1200 0 50 ~ 0
+GND_SELV
+Text Label 4700 1300 0 50 ~ 0
++5V_RDC
+Wire Wire Line
+	4700 1100 5200 1100
+Wire Wire Line
+	4700 1200 5200 1200
+Wire Wire Line
+	4700 1300 5200 1300
+$Comp
+L Connector_Generic:Conn_01x03 U4
+U 1 1 66000006
+P 7100 1200
+F 0 "U4" H 7180 1242 50 0000 L CNN
+F 1 "TPS62133_3V3" H 7180 1151 50 0000 L CNN
+	1    7100 1200
+	1 0 0 -1
+$EndComp
+Text Label 6300 1100 0 50 ~ 0
++5V5_PRE
+Text Label 6300 1200 0 50 ~ 0
+GND_SELV
+Text Label 6300 1300 0 50 ~ 0
++3V3
+Wire Wire Line
+	6300 1100 6900 1100
+Wire Wire Line
+	6300 1200 6900 1200
+Wire Wire Line
+	6300 1300 6900 1300
+Text Notes 700 2300 0 100 ~ 20
+BRCS01C-05-H1 FAIL-SAFE INTERFACE
+$Comp
+L Connector_Generic:Conn_01x06 J2
+U 1 1 66000007
+P 1450 2900
+F 0 "J2" H 1368 3317 50 0000 C CNN
+F 1 "BRCS01C_05_H1" H 1368 3226 50 0000 C CNN
+	1    1450 2900
+	-1 0 0 -1
+$EndComp
+Text Label 1800 2700 0 50 ~ 0
++5V_RDC
+Text Label 1800 2800 0 50 ~ 0
+RDC_ACDC_RAW
+Text Label 1800 2900 0 50 ~ 0
+GND_SELV
+Text Label 1800 3000 0 50 ~ 0
+RDC_CAL
+Text Label 1800 3100 0 50 ~ 0
+RDC_TEST
+Text Label 1800 3200 0 50 ~ 0
+RDC_DC_RAW
+Wire Wire Line
+	1650 2700 2350 2700
+Wire Wire Line
+	1650 2800 2350 2800
+Wire Wire Line
+	1650 2900 2350 2900
+Wire Wire Line
+	1650 3000 2350 3000
+Wire Wire Line
+	1650 3100 2350 3100
+Wire Wire Line
+	1650 3200 2350 3200
+$Comp
+L Device:R R1
+U 1 1 66000008
+P 3000 2550
+F 0 "R1" H 3070 2596 50 0000 L CNN
+F 1 "10k" H 3070 2505 50 0000 L CNN
+	1    3000 2550
+	1 0 0 -1
+$EndComp
+Text Label 2800 2300 0 50 ~ 0
++3V3
+Wire Wire Line
+	3000 2300 3000 2400
+Wire Wire Line
+	2350 2800 3000 2800
+Wire Wire Line
+	3000 2700 3000 2800
+$Comp
+L Device:R R2
+U 1 1 66000009
+P 3700 2550
+F 0 "R2" H 3770 2596 50 0000 L CNN
+F 1 "10k" H 3770 2505 50 0000 L CNN
+	1    3700 2550
+	1 0 0 -1
+$EndComp
+Wire Wire Line
+	3700 2300 3700 2400
+Text Label 3500 2300 0 50 ~ 0
++3V3
+Wire Wire Line
+	2350 3200 3700 3200
+Wire Wire Line
+	3700 2700 3700 3200
+$Comp
+L Device:R R3
+U 1 1 6600000A
+P 3350 2800
+F 0 "R3" V 3143 2800 50 0000 C CNN
+F 1 "1k" V 3234 2800 50 0000 C CNN
+	1    3350 2800
+	0 1 1 0
+$EndComp
+Wire Wire Line
+	3000 2800 3200 2800
+Text Label 3550 2800 0 50 ~ 0
+RDC_ACDC_FAULT
+Wire Wire Line
+	3500 2800 4300 2800
+$Comp
+L Device:R R4
+U 1 1 6600000B
+P 4050 3200
+F 0 "R4" V 3843 3200 50 0000 C CNN
+F 1 "1k" V 3934 3200 50 0000 C CNN
+	1    4050 3200
+	0 1 1 0
+$EndComp
+Wire Wire Line
+	3700 3200 3900 3200
+Text Label 4250 3200 0 50 ~ 0
+RDC_DC_FAULT
+Wire Wire Line
+	4200 3200 4900 3200
+Text Notes 2850 3450 0 50 ~ 0
+Normal=LOW; trip/open wire/power loss=HIGH via pull-up
+$Comp
+L Connector_Generic:Conn_01x06 U5
+U 1 1 6600000C
+P 6100 2950
+F 0 "U5" H 6180 2942 50 0000 L CNN
+F 1 "HARDWARE_SAFETY_LOGIC" H 6180 2851 50 0000 L CNN
+	1    6100 2950
+	1 0 0 -1
+$EndComp
+Text Label 5000 2750 0 50 ~ 0
+RDC_DC_FAULT
+Text Label 5000 2850 0 50 ~ 0
+WATCHDOG_OK
+Text Label 5000 2950 0 50 ~ 0
+RDC_5V_OK
+Text Label 5000 3050 0 50 ~ 0
+CONTACTOR_REQUEST
+Text Label 5000 3150 0 50 ~ 0
+LOCAL_SAFE_RESET
+Text Label 5000 3250 0 50 ~ 0
+K1_HW_ENABLE
+Wire Wire Line
+	5000 2750 5900 2750
+Wire Wire Line
+	5000 2850 5900 2850
+Wire Wire Line
+	5000 2950 5900 2950
+Wire Wire Line
+	5000 3050 5900 3050
+Wire Wire Line
+	5000 3150 5900 3150
+Wire Wire Line
+	5000 3250 5900 3250
+Text Notes 6750 2850 0 50 ~ 0
+Set-dominant latch; SET overrides RESET
+Text Notes 6750 3000 0 50 ~ 0
+Unpowered state: K1_HW_ENABLE=LOW
+Text Notes 6750 3150 0 50 ~ 0
+ACDC_TRIP_ARM is DNP with external Type A RCD
+$Comp
+L Connector_Generic:Conn_01x04 U6
+U 1 1 6600000D
+P 9050 2900
+F 0 "U6" H 9130 2892 50 0000 L CNN
+F 1 "TPS3430_Q1_WATCHDOG" H 9130 2801 50 0000 L CNN
+	1    9050 2900
+	1 0 0 -1
+$EndComp
+Text Label 8050 2800 0 50 ~ 0
++3V3
+Text Label 8050 2900 0 50 ~ 0
+GND_SELV
+Text Label 8050 3000 0 50 ~ 0
+WATCHDOG_WDI
+Text Label 8050 3100 0 50 ~ 0
+WATCHDOG_OK
+Wire Wire Line
+	8050 2800 8850 2800
+Wire Wire Line
+	8050 2900 8850 2900
+Wire Wire Line
+	8050 3000 8850 3000
+Wire Wire Line
+	8050 3100 8850 3100
+Text Notes 700 4200 0 100 ~ 20
+ESP32-S3 CONTROL AND FUTURE CONTACT
+$Comp
+L RF_Module:ESP32-S3-WROOM-1 U1
+U 1 1 6600000E
+P 3000 5500
+F 0 "U1" H 3000 7081 50 0000 C CNN
+F 1 "ESP32-S3-WROOM-1-N8R8" H 3000 6990 50 0000 C CNN
+	1    3000 5500
+	1 0 0 -1
+$EndComp
+Text Label 1900 4500 0 50 ~ 0
++3V3
+Text Label 1900 6500 0 50 ~ 0
+GND_SELV
+Text Notes 1950 6950 0 50 ~ 0
+GPIO mapping is defined in schematic/01-power-mcu.md
+$Comp
+L Connector_Generic:Conn_01x06 J3
+U 1 1 6600000F
+P 5650 5000
+F 0 "J3" H 5730 4992 50 0000 L CNN
+F 1 "FUTURE_CONTACTOR" H 5730 4901 50 0000 L CNN
+	1    5650 5000
+	1 0 0 -1
+$EndComp
+Text Label 4400 4800 0 50 ~ 0
++24V_K1
+Text Label 4400 4900 0 50 ~ 0
+K1_CMD_N
+Text Label 4400 5000 0 50 ~ 0
+K1_AUX_L
+Text Label 4400 5100 0 50 ~ 0
+K1_AUX_N
+Text Label 4400 5200 0 50 ~ 0
+LOAD_V_PRESENT
+Text Label 4400 5300 0 50 ~ 0
+GND_SELV
+Wire Wire Line
+	4400 4800 5450 4800
+Wire Wire Line
+	4400 4900 5450 4900
+Wire Wire Line
+	4400 5000 5450 5000
+Wire Wire Line
+	4400 5100 5450 5100
+Wire Wire Line
+	4400 5200 5450 5200
+Wire Wire Line
+	4400 5300 5450 5300
+Text Notes 4400 5600 0 50 ~ 0
+K1 and coil driver intentionally DNP
+$Comp
+L Connector_Generic:Conn_01x03 J4
+U 1 1 66000010
+P 7750 5000
+F 0 "J4" H 7830 5042 50 0000 L CNN
+F 1 "TYPE2_CP_PP" H 7830 4951 50 0000 L CNN
+	1    7750 5000
+	1 0 0 -1
+$EndComp
+Text Label 6900 4900 0 50 ~ 0
+CP
+Text Label 6900 5000 0 50 ~ 0
+PP
+Text Label 6900 5100 0 50 ~ 0
+PE
+Wire Wire Line
+	6900 4900 7550 4900
+Wire Wire Line
+	6900 5000 7550 5000
+Wire Wire Line
+	6900 5100 7550 5100
+Text Notes 6900 5450 0 50 ~ 0
+CP/PP isolated interface is next capture sheet
+Text Notes 700 7450 0 60 ~ 12
+SAFETY NOTE: values and functional blocks marked preliminary require calculation, datasheet review and bench validation.
+$EndSCHEMATC
