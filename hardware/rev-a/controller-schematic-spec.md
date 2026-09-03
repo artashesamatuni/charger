@@ -60,7 +60,7 @@ Do not connect `GND_SELV` to PE until the CP isolation/reference architecture is
 | Q1 | 60 V logic-level N-MOSFET | 24 V contactor low-side driver | exact part pending coil current |
 | Q2 | small-signal NPN/N-MOSFET | direct RDC gate clamp | provisional topology |
 | D1 | diode + TVS clamp network | fast controlled coil demagnetization | values pending contactor coil |
-| K1 | XKJL1-40/2, 2-pole 40 A definite-purpose contactor (exact coil suffix pending) | L/N switching | user-selected candidate; conditional |
+| K1 | Baomain BMHC7-40, 2NO, DC/AC 24 V coil | L/N switching | preferred prototype candidate; conditional |
 
 ## 5. ESP32-S3 core connections
 
@@ -157,7 +157,7 @@ Provide independent power-good signals for `+24V_ISO`, `+5V_RDC`, and `+3V3`. Th
 
 ## 9. Contactor driver
 
-> K1 interface remains conditional. Published XKJL1 family listings identify the 24 V coil version as 24 VAC, 50/60 Hz. The DC MOSFET driver and diode/TVS suppression below apply only if the purchased nameplate explicitly confirms a DC coil. A confirmed AC-coil unit requires a revised isolated AC-coil supply and switching circuit.
+> K1 interface remains conditional. Use the BMHC7-40 variant with 2NO main contacts and a DC/AC 24 V electronic coil. The seller states 2 W maximum coil power. Q1 may switch its 24 VDC supply only after coil polarity, startup current, turn-off transient, minimum pickup voltage, and the manufacturer's permitted suppression method are verified on the purchased unit. Do not assume that an external flyback diode is suitable for the internal AC/DC coil electronics.
 
 ### 9.1 Interface J4
 
@@ -212,17 +212,19 @@ Production test shall additionally inject calibrated residual-current waveforms 
 
 - BITUO quotation, controlled datasheet, exact variant suffix, connector/cable drawing, and certificate/test evidence for BRCS01C-05-H1.
 - Guaranteed polarity and electrical limits of DC TRIP, AC+DC TRIP, TEST, and CAL.
-- Exact XKJL1-40/2 order code and nameplate data: coil voltage, AC/DC type and frequency, pickup, hold, dropout, hot current, suppression limits, contact utilization rating, opening time, and altitude/temperature limits.
-- Confirm whether the selected XKJL1-40/2 has an integrated mechanically linked auxiliary contact or a manufacturer-approved auxiliary block. Output-voltage sensing remains mandatory and is not treated as equivalent to a mirror contact.
+- Controlled BMHC7-40 datasheet and exact 2NO / DC/AC 24 V order code: pickup and dropout voltage, startup and steady-state current, permitted suppression, opening time, terminal conductor range/torque, electrical endurance, certifications, and altitude derating.
+- Confirm a manufacturer-approved auxiliary contact compatible with this exact BMHC7 body. Output-voltage sensing remains mandatory and is not treated as equivalent to a mechanically linked mirror contact.
 - Certified isolated AC/DC PSU rated for −25…+55 °C and 4000 m.
 - Insulation coordination inputs: overvoltage category, pollution degree, material group, and required impulse voltage.
 - Decision on whether AC+DC TRIP is part of the hardwired shutdown OR-chain or diagnostics only.
 
-## 13. K1 candidate decision — XKJL1-40/2
+## 13. K1 candidate decision — Baomain BMHC7-40
 
-- `XKJL1-40/2` is the user-selected K1 candidate for the prototype; release status is conditional until the exact nameplate/order code is documented.
-- Available family information shows 2-pole 40 A definite-purpose versions and commonly lists 24 VAC, 120 VAC, or 240 VAC coils. It does not justify assuming a 24 VDC coil.
-- If the purchased unit is 24 VAC, revise sheet 04: Q1 low-side DC MOSFET and D1 flyback/TVS are not applicable as drawn. Provide an isolated 24 VAC coil source and a suitably rated, fail-safe AC switching stage.
-- No integrated auxiliary/mirror contact has yet been verified. Obtain manufacturer evidence for the fitted contact or compatible auxiliary block; retain independent vehicle-side voltage sensing for welded-contact detection.
-- The family temperature claim does not replace enclosure validation. At 32 A, test terminal rise, contact rise, coil temperature, dropout time, and derating at +55 °C in the IP65 enclosure and at the 4000 m design altitude.
-- Do not populate or energize K1 until a clear nameplate photograph and controlled datasheet for the purchased unit have been reviewed.
+- Preferred prototype configuration: `BMHC7-40`, `2NO`, `DC/AC 24 V`. Do not order the 2NC or 1NO+1NC versions for switching L and N.
+- Published seller data: `Ue 250 VAC`, `Ui 500 V`, `AC-7a 40 A`, `AC-7b 18 A`, maximum coil power 2 W, operating temperature −5…+60 °C, pollution degree 2, IP20 body, and up to 100 switching operations per day.
+- This is a better controller match than the XKJL1 candidate because the selected coil accepts 24 VDC and has low holding power. XKJL1-40/2 is retained only as an unqualified alternate.
+- Rating margin is limited: the EVSE continuous current is 32 A versus a 40 A AC-7a rating. Validate both poles at 32 A and 230 V in the real IP65 enclosure at +55 °C; monitor contactor terminals and automatically derate charging current before unsafe temperature rise.
+- The listed −5 °C minimum does not meet the EVSE requirement of −25 °C. The prototype must not be released for cold operation unless pickup, dropout, contact resistance, and mechanical operation pass testing at −25 °C or a qualified alternative is selected.
+- Published impulse withstand information is variant-dependent, and no 4000 m rating is provided. Complete insulation-coordination review and high-altitude derating before PCB or enclosure release.
+- No built-in auxiliary/mirror contact is shown for the selected 2NO product. Investigate a documented compatible side auxiliary; retain isolated load-side voltage sensing for welded-contact detection.
+- Product page: https://baomain.com/products/baomain-dc-ac-modular-contactor-hum-free-bmhc7-40a-2pole ambiguous seller data must be replaced by a controlled manufacturer datasheet before release.
