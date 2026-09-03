@@ -71,7 +71,9 @@ U_WD is provisionally TPS3430-Q1.
 - A free-running interrupt must not service WDI.
 - Timing components remain DNP until firmware scheduling is frozen.
 
-## TEST and CAL drivers-TEST:** drive pin 5 high for 40–100 ms in the first prototype; the public datasheet specifies activation above 40 ms. Use an open-drain or series-buffered driver whose reset state is low.
+## TEST and CAL drivers
+
+- **TEST:** drive pin 5 high for 40–100 ms in the first prototype; the public datasheet specifies activation above 40 ms. Use an open-drain or series-buffered driver whose reset state is low.
 - **CAL:** pull pin 4 to GND for 50–100 ms using an open-drain transistor. Leave it high impedance otherwise.
 - Calibration is allowed only with the contactor open and no current through the sensing aperture.
 
