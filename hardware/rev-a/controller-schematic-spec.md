@@ -60,7 +60,7 @@ Do not connect `GND_SELV` to PE until the CP isolation/reference architecture is
 | Q1 | 60 V logic-level N-MOSFET | 24 V contactor low-side driver | exact part pending coil current |
 | Q2 | small-signal NPN/N-MOSFET | direct RDC gate clamp | provisional topology |
 | D1 | diode + TVS clamp network | fast controlled coil demagnetization | values pending contactor coil |
-| K1 | 2-pole, 40 A contactor, 24 VDC coil, auxiliary contact | L/N switching | exact part pending |
+| K1 | XKJL1-40/2, 2-pole 40 A definite-purpose contactor (exact coil suffix pending) | L/N switching | user-selected candidate; conditional |
 
 ## 5. ESP32-S3 core connections
 
@@ -157,6 +157,8 @@ Provide independent power-good signals for `+24V_ISO`, `+5V_RDC`, and `+3V3`. Th
 
 ## 9. Contactor driver
 
+> K1 interface remains conditional. Published XKJL1 family listings identify the 24 V coil version as 24 VAC, 50/60 Hz. The DC MOSFET driver and diode/TVS suppression below apply only if the purchased nameplate explicitly confirms a DC coil. A confirmed AC-coil unit requires a revised isolated AC-coil supply and switching circuit.
+
 ### 9.1 Interface J4
 
 | Pin | Net | Description |
@@ -210,7 +212,17 @@ Production test shall additionally inject calibrated residual-current waveforms 
 
 - BITUO quotation, controlled datasheet, exact variant suffix, connector/cable drawing, and certificate/test evidence for BRCS01C-05-H1.
 - Guaranteed polarity and electrical limits of DC TRIP, AC+DC TRIP, TEST, and CAL.
-- Exact 2-pole 40 A contactor and 24 V coil data: pickup, hold, dropout, hot current, suppression limits, auxiliary-contact rating, opening time, and altitude/temperature limits.
+- Exact XKJL1-40/2 order code and nameplate data: coil voltage, AC/DC type and frequency, pickup, hold, dropout, hot current, suppression limits, contact utilization rating, opening time, and altitude/temperature limits.
+- Confirm whether the selected XKJL1-40/2 has an integrated mechanically linked auxiliary contact or a manufacturer-approved auxiliary block. Output-voltage sensing remains mandatory and is not treated as equivalent to a mirror contact.
 - Certified isolated AC/DC PSU rated for −25…+55 °C and 4000 m.
 - Insulation coordination inputs: overvoltage category, pollution degree, material group, and required impulse voltage.
 - Decision on whether AC+DC TRIP is part of the hardwired shutdown OR-chain or diagnostics only.
+
+## 13. K1 candidate decision — XKJL1-40/2
+
+- `XKJL1-40/2` is the user-selected K1 candidate for the prototype; release status is conditional until the exact nameplate/order code is documented.
+- Available family information shows 2-pole 40 A definite-purpose versions and commonly lists 24 VAC, 120 VAC, or 240 VAC coils. It does not justify assuming a 24 VDC coil.
+- If the purchased unit is 24 VAC, revise sheet 04: Q1 low-side DC MOSFET and D1 flyback/TVS are not applicable as drawn. Provide an isolated 24 VAC coil source and a suitably rated, fail-safe AC switching stage.
+- No integrated auxiliary/mirror contact has yet been verified. Obtain manufacturer evidence for the fitted contact or compatible auxiliary block; retain independent vehicle-side voltage sensing for welded-contact detection.
+- The family temperature claim does not replace enclosure validation. At 32 A, test terminal rise, contact rise, coil temperature, dropout time, and derating at +55 °C in the IP65 enclosure and at the 4000 m design altitude.
+- Do not populate or energize K1 until a clear nameplate photograph and controlled datasheet for the purchased unit have been reviewed.
