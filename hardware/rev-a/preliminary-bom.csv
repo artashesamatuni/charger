@@ -1,0 +1,22 @@
+Item,Reference,Manufacturer,Part number,Description,Qty,Status,Key requirement
+1,U1,Espressif,ESP32-S3-WROOM-1-N8R8,Wi-Fi MCU module 8MB flash 8MB PSRAM,1,Selected,Final suffix and temperature grade audit
+2,U2,Texas Instruments,TPS3430-Q1,Independent window watchdog VSON-10,1,Provisional,Timing component calculation required
+3,U3,BITUO Technik,BRCS01C-05-H1,5V AC/DC residual current sensor 6mA DC,1,Preferred,Certificate and controlled datasheet required
+4,U4,TBD,TBD,24V to 5.5V buck regulator 36V minimum input,1,Open,EMC thermal and transient review
+5,U5,Texas Instruments,TLV76750,Low-noise 5V LDO for RDC sensor,1,Provisional,Verify dropout stability ripple and temperature
+6,U6,TBD,TBD,3.3V regulator for ESP32-S3 1A minimum,1,Open,Wi-Fi transient load and thermal margin
+7,U7,TBD,TBD,Power supervisor and safety logic,1,Open,Independent fail-safe gating
+8,Q1,TBD,TBD,60V logic-level contactor coil MOSFET,1,Open,Select after coil current and clamp voltage
+9,Q2,TBD,TBD,Dominant RDC trip gate-clamp transistor,1,Open,Size from guaranteed BRCS output
+10,D1,TBD,TBD,Coil demagnetization diode and TVS network,1,Open,Select from contactor release-time test
+11,K1,TBD,TBD,2-pole 40A contactor 24VDC coil with auxiliary contact,1,Open,Temperature altitude endurance utilization category
+12,J3,TBD,TBD,Keyed locking 6-way RDC connector,1,Open,Must match BRCS01C-05-H1 harness
+13,J4,TBD,TBD,4-way contactor coil and auxiliary connector,1,Open,Current voltage temperature locking
+14,FB1,TBD,TBD,Ferrite bead for RDC 5V supply,1,Open,Impedance and DC current after EMC testing
+15,C_RDC1,TBD,TBD,RDC local ceramic decoupling,1,Open,Value per BITUO datasheet
+16,C_RDC2,TBD,TBD,RDC local bulk decoupling,1,Open,Value per BITUO datasheet
+17,R_GS,TBD,TBD,Q1 gate-source pull-down,1,Open,Guarantee off state and discharge time
+18,D_ESD_USB,TBD,TBD,Low-capacitance USB ESD protection,1,Open,IEC 61000-4-2 system target
+19,J_USB,TBD,TBD,USB service connector for IP20 only,1,Open,Not populated/exposed in IP65
+20,LED1-LED3,TBD,TBD,Status LEDs or addressable status indicator,1 set,Open,Patterns distinguishable without color alone
+21,SW1,TBD,TBD,Sealed local button,1,Open,IP65 system rating and lifecycle
