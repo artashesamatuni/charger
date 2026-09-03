@@ -14,6 +14,6 @@ Engineering documents:
 - [System requirements](docs/system-requirements.md): traceable, verifiable product requirements.
 - [Preliminary hazard analysis](docs/hazard-analysis.md): design FMEA and required independent safety paths.
 - [Architecture and interface specification](docs/architecture-and-interfaces.md): frozen product options, subsystem partitioning, communications, UI, and schematic-sheet plan.
-- [Thermal derating algorithm](docs/thermal-derating.md): sensor validation, current limiting, shutdown/recovery behavior, and environmental test matrix.
+- [Thermal derating algorithm](docs/thermal-derating.md): sensor validation, current limiting, shutdown/recovery behavior, and environmental test matrix.\n- [Rev A controller schematic specification](hardware/rev-a/controller-schematic-spec.md): ESP32-S3, BRCS01C, watchdog, hardwired contactor inhibit, self-test, and KiCad sheet plan.\n- [Rev A preliminary BOM](hardware/rev-a/preliminary-bom.csv): selected, provisional, and open controller components.
 
 > This repository is an engineering prototype, not certified equipment. Mains testing requires appropriate competence, isolation, protection, enclosure, and test equipment. Do not connect a vehicle or public supply until the safety circuits and fault responses have been independently reviewed and tested.
